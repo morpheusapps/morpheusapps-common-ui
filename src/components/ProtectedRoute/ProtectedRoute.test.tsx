@@ -1,22 +1,20 @@
 import React, { ReactNode } from 'react';
 import { useLocation, Route } from 'react-router-dom';
 import { ProtectedRoute, ProtectedRouteProps } from './ProtectedRoute';
-import { Fakes } from '../../../test-utils/Fakes';
 import { renderWithRouter } from '../../../test-utils/renderWithRouter';
+import { Fakes } from '../../../test-utils/Fakes';
 
 const TestRoutes = ({
   protectedRoute,
-  failurePath,
-  failureText
+  failurePath
 }: {
   protectedRoute: ReactNode;
   failurePath: string;
-  failureText: string;
 }) => (
   <>
     {protectedRoute}
     <Route exact path={failurePath}>
-      {failureText}
+      <LocationDisplay />
     </Route>
   </>
 );
@@ -26,7 +24,6 @@ const LocationDisplay = () => <div>{useLocation().pathname}</div>;
 describe('<ProtectedRoute>', () => {
   let props: ProtectedRouteProps;
   let route: string;
-  let failureText: string;
 
   beforeEach(() => {
     props = {
@@ -36,7 +33,6 @@ describe('<ProtectedRoute>', () => {
     };
 
     route = Fakes.route();
-    failureText = Fakes.string();
   });
 
   test('allowed', () => {
@@ -50,7 +46,6 @@ describe('<ProtectedRoute>', () => {
       <TestRoutes
         protectedRoute={protectedRoute}
         failurePath={props.failurePath}
-        failureText={failureText}
       />,
       { route }
     );
@@ -69,11 +64,10 @@ describe('<ProtectedRoute>', () => {
       <TestRoutes
         protectedRoute={protectedRoute}
         failurePath={props.failurePath}
-        failureText={failureText}
       />,
       { route }
     );
 
-    expect(getByText(failureText)).toBeDefined();
+    expect(getByText(props.failurePath)).toBeDefined();
   });
 });
