@@ -1,0 +1,96 @@
+{
+  "name": "morpheusapps-common-ui",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "repository": "git@github.com:morpheusapps/common-ui.git",
+  "author": "maorRoz <andory@post.bgu.ac.il>",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.1.2",
+    "@testing-library/react": "^9.3.0",
+    "@types/faker": "^4.1.5",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.8",
+    "@types/react": "^16.9.3",
+    "@types/react-dom": "16.9.1",
+    "@types/react-router-dom": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/experimental-utils": "^1.11.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.13.7",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.1.2",
+    "eslint-plugin-standard": "^4.0.0",
+    "faker": "^4.1.0",
+    "husky": "^3.0.1",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.1",
+    "prettier": "^1.18.2",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-router-dom": "^5.1.2",
+    "styled-components": "^4.4.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-router-dom": "^5.1.2"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "build:publish": "yarn build && yarn publish",
+    "lint": "eslint . --ext .ts --fix",
+    "test": "jest --runInBand --watch",
+    "test:all": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/?(*.)(test).(ts|tsx)"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "src/redux/**/*.ts",
+      "src/components/**/*.tsx",
+      "src/components/**/*.ts",
+      "src/selectors/**/*.ts",
+      "src/utils/**/*.ts",
+      "src/domain/**/*.ts"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-commit": "git update-index --again",
+      "pre-commit": "yarn lint && git add && lint-staged"
+    }
+  }
+}
